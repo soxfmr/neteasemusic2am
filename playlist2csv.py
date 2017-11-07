@@ -26,7 +26,6 @@ def save_songs(songs, playlist_path):
                     song[k] = v.encode('utf-8')
             writer.writerow(song)
 
-
 def load_songs(playlist_path):
     with open(playlist_path) as playlist_file:
         reader = csv.DictReader(playlist_file)
@@ -148,13 +147,12 @@ def add_songs(songs):
         'Accept-Encoding': 'gzip',
         'X-Apple-itre': '0',
         'Client-DAAP-Version': '3.13',
-        'User-Agent': 'iTunes/12.3 (Macintosh; OS X 10.11) ' +
-                      'AppleWebKit/601.1.56',
+        'User-Agent': sys.argv[1],
         'Connection': 'keep-alive',
         'Content-Type': 'application/x-dmap-tagged',
-        'X-Dsid': sys.argv[1],
-        'Cookie': sys.argv[2],
-        'X-Guid': sys.argv[3],
+        'X-Dsid': sys.argv[2],
+        'Cookie': sys.argv[3],
+        'X-Guid': sys.argv[4],
         'Content-Length': '77'
     }
     for song in songs:
@@ -179,7 +177,7 @@ def add_songs(songs):
                         song['Imported'] = 'not found'
                 else:
                     traceback.print_exc()
-                print(u'[Importe Fail]{} - {}: {}'.
+                print(u'[Import Failed]{} - {}: {}'.
                       format(title, artist, str(e)))
             break
 
@@ -187,7 +185,7 @@ def add_songs(songs):
 def main():
     songs = []
     try:
-        playlist_id = sys.argv[4]
+        playlist_id = sys.argv[5]
         playlist_path = './{0}.csv'.format(playlist_id)
         if not os.path.exists(playlist_path):
             tracks = download_playlist(playlist_id)
