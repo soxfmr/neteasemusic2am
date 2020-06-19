@@ -38,12 +38,12 @@ def load_songs(playlist_path):
         return songs
 
 
-def download_playlist(playlist_id):
+def download_playlist(playlist_id, user_token):
     cookie_opener = urllib2.build_opener()
-    cookie_opener.addheaders.append(('Cookie', 'appver=2.0.2'))
-    cookie_opener.addheaders.append(('Referer', 'http://music.163.com'))
+    cookie_opener.addheaders.append(('Cookie', 'MUSIC_U=' + user_token))
+    cookie_opener.addheaders.append(('Referer', 'https://music.163.com'))
     urllib2.install_opener(cookie_opener)
-    url = 'http://music.163.com/api/playlist/detail?id=' + playlist_id
+    url = 'https://music.163.com/api/playlist/detail?id=' + playlist_id
     resp = urllib2.urlopen(url)
     response = json.loads(resp.read().decode('utf-8'))
     return response['result']['tracks']
@@ -186,9 +186,10 @@ def main():
     songs = []
     try:
         playlist_id = sys.argv[5]
+        user_token = sys.argv[6]
         playlist_path = './{0}.csv'.format(playlist_id)
         if not os.path.exists(playlist_path):
-            tracks = download_playlist(playlist_id)
+            tracks = download_playlist(playlist_id, user_token)
             songs = track_to_songs(tracks)
         else:
             songs = load_songs(playlist_path)
