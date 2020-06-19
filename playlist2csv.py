@@ -67,8 +67,8 @@ def track_to_songs(tracks):
 
 def retrieve_itunes_identifier(title, artist):
     headers = {
-        'X-Apple-Store-Front': '143446-10,32 ab:rSwnYxS0 t:music2',
-        'X-Apple-Tz': '7200'
+        'X-Apple-Store-Front': '143465-19,42 t:music31',
+        'X-Apple-Tz': '28800'
     }
     url = 'https://itunes.apple.com/WebObjects/MZStore.woa/wa/search' +\
           '?clientApplication=MusicPlayer&term=' +\
@@ -140,10 +140,10 @@ def add_song(itunes_identifier, headers):
 
 def add_songs(songs):
     headers = {
-        'X-Apple-Store-Front': '143465-19,32',
-        'Client-iTunes-Sharing-Version': '3.12',
+        'X-Apple-Store-Front': '143465-19,42',
+        'Client-iTunes-Sharing-Version': '3.16',
         'Accept-Language': 'zh-cn, zh;q=0.75, en-us;q=0.50, en;q=0.25',
-        'Client-Cloud-DAAP-Version': '1.0/iTunes-12.3.0.44',
+        'Client-Cloud-DAAP-Version': '1.3/AMPLibraryAgent-1.0.5.14',
         'Accept-Encoding': 'gzip',
         'X-Apple-itre': '0',
         'Client-DAAP-Version': '3.13',
